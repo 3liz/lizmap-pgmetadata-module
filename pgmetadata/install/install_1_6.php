@@ -1,17 +1,16 @@
 <?php
 /**
-* @package   lizmap
-* @subpackage pgmetadata
-* @author    your name
-* @copyright 2011-2019 3liz
-* @link      https://3liz.com
-* @license    All rights reserved
-*/
-
-
-class pgmetadataModuleInstaller extends jInstallerModule {
-
-    function install() {
+ * @author    Pierre DRILLIN
+ * @copyright 2020 3liz
+ *
+ * @see      https://3liz.com
+ *
+ * @license    Mozilla Public Licence
+ */
+class pgmetadataModuleInstaller extends jInstallerModule
+{
+    public function install()
+    {
         //if ($this->firstDbExec())
         //    $this->execSQLScript('sql/install');
 

@@ -1,36 +1,35 @@
 <?php
 /**
-* @package   lizmap
-* @subpackage pgmetadata
-* @author    Pierre DRILLIN
-* @copyright 2020 3liz
-* @link      https://3liz.com
-* @license    Mozilla Public Licence
-*/
+ * @author    Pierre DRILLIN
+ * @copyright 2020 3liz
+ *
+ * @see      https://3liz.com
+ *
+ * @license    Mozilla Public Licence
+ */
+class pgmetadataListener extends jEventListener
+{
+    public function ongetMapAdditions($event)
+    {
+        $js = array();
+        $jscode = array();
 
-class pgmetadataListener extends jEventListener{
+        $pgmetadataConfig = array();
 
-   function ongetMapAdditions ($event) {
-       $js = array();
-       $jscode = array();
+        $pgmetadataConfig['urls']['index'] = jUrl::get('pgmetadata~service:index');
 
-       $pgmetadataConfig = array();
+        $js = array();
+        $js[] = jUrl::get('jelix~www:getfile', array('targetmodule' => 'pgmetadata', 'file' => 'pgmetadata.js'));
 
-       $pgmetadataConfig['urls']['index'] = jUrl::get('pgmetadata~service:index');
+        $jscode = array(
+            'var pgmetadataConfig = '.json_encode($pgmetadataConfig),
+        );
 
-       $js = array();
-       $js[] = jUrl::get('jelix~www:getfile', array('targetmodule'=>'pgmetadata', 'file'=>'pgmetadata.js'));
-
-       $jscode = array(
-                'var pgmetadataConfig = ' . json_encode($pgmetadataConfig)
-       );
-
-       $event->add(
-           array(
-               'js' => $js,
-               'jscode' => $jscode
-           )
-       );
-   }
+        $event->add(
+            array(
+                'js' => $js,
+                'jscode' => $jscode,
+            )
+        );
+    }
 }
-?>
