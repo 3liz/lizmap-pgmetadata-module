@@ -3,3 +3,6 @@
 
 # PHP
 .php_cs.cache
+
+# Node, NPM
+node_modules
