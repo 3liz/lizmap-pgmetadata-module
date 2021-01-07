@@ -10,10 +10,10 @@
 class search
 {
     protected $sql = array(
-        'check_dataset' => "SELECT tablename FROM pg_tables WHERE schemaname = 'pgmetadata' AND tablename = 'dataset'",
-        'get_html' => 'SELECT pgmetadata.get_dataset_item_html_content($1, $2, $3) AS html',
-        'get_html_default' => 'SELECT pgmetadata.get_dataset_item_html_content($1, $2) AS html',
-        'get_version' => "SELECT column_name FROM information_schema.columns WHERE table_schema = 'pgmetadata' AND table_name = 'glossary' AND column_name LIKE 'label_%';",
+        'check_pgmetadata_installed' => "SELECT tablename FROM pg_tables WHERE schemaname = 'pgmetadata' AND tablename = 'dataset'",
+        'get_translated_locale_columns' => "SELECT column_name FROM information_schema.columns WHERE table_schema = 'pgmetadata' AND table_name = 'glossary' AND column_name LIKE 'label_%';",
+        'get_dataset_html_content' => 'SELECT pgmetadata.get_dataset_item_html_content($1, $2, $3) AS html',
+        'get_dataset_html_content_default_locale' => 'SELECT pgmetadata.get_dataset_item_html_content($1, $2) AS html',
     );
 
     protected function getSql($option)
@@ -25,9 +25,15 @@ class search
         return null;
     }
 
-    public function query($sql, $filterParams, $profile = 'pgmetadata')
+    public function query($sql, $filterParams, $profile)
     {
-        $cnx = jDb::getConnection($profile);
+        if ($profile) {
+            $cnx = jDb::getConnection($profile);
+        } else {
+            // Default connection
+            $cnx = jDb::getConnection();
+        }
+
         $resultset = $cnx->prepare($sql);
         if (empty($filterParams)) {
             $resultset->execute();
@@ -45,7 +51,7 @@ class search
      * @param mixed $filterParams
      * @param mixed $option
      */
-    public function getData($profile, $filterParams, $option)
+    public function getData($option='check_pgmetadata_installed', $filterParams=array(), $profile=null)
     {
         // Run query
         $sql = $this->getSql($option);

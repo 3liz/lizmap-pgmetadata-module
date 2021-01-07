@@ -72,7 +72,6 @@ class serviceCtrl extends jController
         $layerParameters = $layer->getDatasourceParameters();
         $schema = $layerParameters->schema;
         $tablename = $layerParameters->tablename;
-        jLog::log(json_encode($layerParameters), 'error');
         if (empty($schema)) {
             $schema = 'public';
         }
@@ -83,9 +82,9 @@ class serviceCtrl extends jController
         $profile = $layer->getDatasourceProfile();
 
         // Check if pgmetadata.dataset exists in the layer database
-        $autocomplete = jClasses::getService('pgmetadata~search');
+        $search = jClasses::getService('pgmetadata~search');
 
-        $result = $autocomplete->getData($profile, array(), 'check_dataset');
+        $result = $search->getData('check_pgmetadata_installed', array(), $profile);
         if (isset($result['status'])) {
             $rep->data = $result;
 
@@ -102,31 +101,29 @@ class serviceCtrl extends jController
         // Jelix sanitizes the locale. No need to validate the string given by jLocale
         $locale = jLocale::getCurrentLang();
 
-        $filterParams[] = $locale;
+        // Check if the database glossary table contains locale label_XX columns
+        $result = $search->getData('get_translated_locale_columns', array(), $profile);
 
-        // Init option fot get_html query
-        $option = 'get_html';
-
-        // Get datatbase version
-        $result = $autocomplete->getData($profile, array(), 'get_version');
-
-        // Check if getData don't return an error
+        // Check if getData doesn't return an error
         // If $result['status'] is define there is an error
         if (isset($result['status'])) {
             $rep->data = $result;
-
             return $rep;
         }
 
-        // Check if nothing was returned
+        // Check if no locales label_xx columns were returned
+        // We then need to use the old get html function
         if (count($result) == 0) {
-            $option = 'get_html_default';
+            $option = 'get_dataset_html_content_default_locale';
+        } else {
+            $option = 'get_dataset_html_content';
+            $filterParams[] = $locale;
         }
 
         // Get metadata HTML content for the layer
-        $result = $autocomplete->getData($profile, $filterParams, $option);
+        $result = $search->getData($option, $filterParams, $profile);
 
-        // Check if getData don't return an error
+        // Check if getData doesn't return an error
         // If $result['status'] is define there is an error
         if (isset($result['status'])) {
             $rep->data = $result;
