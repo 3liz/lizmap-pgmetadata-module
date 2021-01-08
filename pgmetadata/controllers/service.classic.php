@@ -85,35 +85,40 @@ class serviceCtrl extends jController
         $search = jClasses::getService('pgmetadata~search');
 
         $result = $search->getData('check_pgmetadata_installed', array(), $profile);
-        if (isset($result['status'])) {
+        if ($result['status'] == 'error') {
             $rep->data = $result;
 
             return $rep;
         }
 
-        if (empty($result)) {
-            $rep->data = array('status' => 'error', 'message' => 'Table pgmetadata.dataset does not exist in the layer database');
+        if (empty($result['data'])) {
+            $rep->data = array(
+                'status' => 'error',
+                'message' => 'Table pgmetadata.dataset does not exist in the layer database',
+            );
 
             return $rep;
         }
 
-        // Get Locale for the html langage
-        // Jelix sanitizes the locale. No need to validate the string given by jLocale
+        // Get currrent locale: en, fr, etc.
         $locale = jLocale::getCurrentLang();
+        if (strlen($locale) != 2) {
+            $locale = 'en';
+        }
 
         // Check if the database glossary table contains locale label_XX columns
         $result = $search->getData('get_translated_locale_columns', array(), $profile);
 
         // Check if getData doesn't return an error
-        // If $result['status'] is define there is an error
-        if (isset($result['status'])) {
+        if ($result['status'] == 'error') {
             $rep->data = $result;
+
             return $rep;
         }
 
         // Check if no locales label_xx columns were returned
         // We then need to use the old get html function
-        if (count($result) == 0) {
+        if (empty($result['data'])) {
             $option = 'get_dataset_html_content_default_locale';
         } else {
             $option = 'get_dataset_html_content';
@@ -124,23 +129,30 @@ class serviceCtrl extends jController
         $result = $search->getData($option, $filterParams, $profile);
 
         // Check if getData doesn't return an error
-        // If $result['status'] is define there is an error
-        if (isset($result['status'])) {
+        if ($result['status'] == 'error') {
             $rep->data = $result;
 
             return $rep;
         }
 
         // Check content and return
-        if (count($result) == 0) {
-            $rep->data = array('status' => 'error', 'message' => 'No line returned by the query');
+        if (empty($result['data'])) {
+            $rep->data = array(
+                'status' => 'error',
+                'message' => 'No line returned by the query',
+            );
 
             return $rep;
         }
-        $feature = $result[0];
+
+        // Get content
+        $feature = $result['data'][0];
 
         // Return  HTML
-        $rep->data = array('status' => 'success', 'html' => $feature->html);
+        $rep->data = array(
+            'status' => 'success',
+            'html' => $feature->html,
+        );
 
         return $rep;
     }
