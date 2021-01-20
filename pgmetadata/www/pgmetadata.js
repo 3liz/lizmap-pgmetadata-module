@@ -40,17 +40,31 @@
 
     function set_metadata_in_subdock(html) {
         if (html) {
-            // Build metadata panel opener
-            let opener = '<details class="pg-metadata"> <summary> ';
-            opener += pgmetadataLocales['ui.button.pgmetadataHtml'];
-            opener += ' </summary>  </details>';
+            // Create bootstrap v2.3 tabs
+            let tabs = '';
+            tabs += '<div class="tabbable">';
+            tabs += '  <ul class="nav nav-tabs">';
+            tabs += '    <li class="active"><a href="#pg-metadata-content" data-toggle="tab">';
+            tabs += pgmetadataLocales['ui.button.pgmetadataHtml'] + '</a></li>';
+            tabs += '    <li><a href="#lizmap-layer-information" data-toggle="tab">';
+            tabs += pgmetadataLocales['ui.button.lizmapLayerInformation'] + '</a></li>';
+            tabs += '  </ul>';
+            tabs += '  <div class="tab-content">';
+            tabs += '    <div class="tab-pane active" id="pg-metadata-content">';
+            tabs += html;
+            tabs += '    </div>';
+            tabs += '    <div class="tab-pane" id="lizmap-layer-information">';
+            tabs += '    </div>';
+            tabs += '  </div>';
+            tabs += '</div>';
 
-            // Add metadata opener
-            document.querySelector('#sub-dock .menu-content').insertAdjacentHTML('beforeend', opener);
+            // Add tabs in #sub-dock
+            document.querySelector('#sub-dock .menu-content').insertAdjacentHTML('afterbegin', tabs);
 
-            // Add metadata content
-            document.querySelector('#sub-dock .sub-metadata .pg-metadata').insertAdjacentHTML('beforeend', html);
+            // Move original Lizmap Web Client layer tools to the second tab
+            $('#sub-dock dl.dl-vertical').appendTo('#lizmap-layer-information');
         }
     }
+
     return {};
 })();

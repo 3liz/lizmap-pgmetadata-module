@@ -1,8 +1,8 @@
-#sub-dock .pg-metadata {
-    font-size: 0.8em;
+#sub-dock #pg-metadata-content {
+    font-size: 0.75em;
     margin-top: 5px;
 }
-#sub-dock .pg-metadata h3{
+#sub-dock #pg-metadata-content h3{
     color: rgb(51, 51, 51);
     background: lightgray;
     padding: 5px;
@@ -10,19 +10,27 @@
     font-weight: bold !important;
 }
 
-#sub-dock .pg-metadata summary{
-    cursor: pointer;
-    border: 1px solid #b1b1b1;
-    border-radius: 5px;
-    padding: 5px;
-    font-size: 1.1em;
+/*
+Tabs
+*/
+#sub-dock .nav-tabs > li > a {
+  font-size: 0.9em;
+  color: darkgray;
+  padding: 5px;
+  border: 1px solid darkgrey;
+  border-bottom-color: transparent;
 }
-
-details.pg-metadata[open]{
-    border: 1px solid #b1b1b1;
-    border-radius: 5px;
+#sub-dock .nav > li > a:hover, .nav > li > a:focus {
+    text-decoration: none;
+    color: black;
 }
-
-details.pg-metadata[open] summary {
-    border: 0 !important;
+#sub-dock .nav-tabs > li > a:hover, .nav-tabs > li > a:focus {
+    border-color: darkgrey;
+}
+#sub-dock .nav-tabs > .active > a, .nav-tabs > .active > a:hover, .nav-tabs > .active > a:focus {
+    color: black;
+    cursor: default;
+    background-color: lightgrey;
+    border: 1px solid darkgray;
+    border-bottom-color: transparent;
 }
