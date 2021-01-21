@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="pgmetadata3liz.com" name="pgmetadata" createdate="2020-11-02">
-        <version date="2020-11-30">0.1.2</version>
+        <version date="2021-01-21">0.2.0</version>
         <label lang="en_US">pgmetadata</label>
         <description lang="en_US" />
         <license URL="">All rights reserved</license>
