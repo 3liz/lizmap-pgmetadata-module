@@ -40,29 +40,40 @@
 
     function set_metadata_in_subdock(html) {
         if (html) {
+            // Get initial Lizmap layer information content
+            let layer_information = $('#sub-dock div.sub-metadata div.menu-content dl.dl-vertical').html();
+            layer_information = ''+layer_information+'';
+
+            // Remove original Lizmap layer information
+            $('#sub-dock div.sub-metadata div.menu-content dl.dl-vertical').remove();
+
             // Create bootstrap v2.3 tabs
             let tabs = '';
-            tabs += '<div class="tabbable">';
+            tabs += '<div id="pg-metadata-tabs" class="tabbable">';
             tabs += '  <ul class="nav nav-tabs">';
-            tabs += '    <li class="active"><a href="#pg-metadata-content" data-toggle="tab">';
-            tabs += pgmetadataLocales['ui.button.pgmetadataHtml'] + '</a></li>';
             tabs += '    <li><a href="#lizmap-layer-information" data-toggle="tab">';
             tabs += pgmetadataLocales['ui.button.lizmapLayerInformation'] + '</a></li>';
+            tabs += '    <li class="active"><a href="#pg-metadata-content" data-toggle="tab">';
+            tabs += pgmetadataLocales['ui.button.pgmetadataHtml'] + '</a></li>';
             tabs += '  </ul>';
             tabs += '  <div class="tab-content">';
+            tabs += '    <div class="tab-pane" id="lizmap-layer-information">';
+            tabs += layer_information;
+            tabs += '    </div>';
             tabs += '    <div class="tab-pane active" id="pg-metadata-content">';
             tabs += html;
-            tabs += '    </div>';
-            tabs += '    <div class="tab-pane" id="lizmap-layer-information">';
             tabs += '    </div>';
             tabs += '  </div>';
             tabs += '</div>';
 
             // Add tabs in #sub-dock
-            document.querySelector('#sub-dock .menu-content').insertAdjacentHTML('afterbegin', tabs);
+            $('#pg-metadata-tabs').remove();
+            document.querySelector('#sub-dock div.sub-metadata div.menu-content').insertAdjacentHTML('afterbegin', tabs);
 
-            // Move original Lizmap Web Client layer tools to the second tab
-            $('#sub-dock dl.dl-vertical').appendTo('#lizmap-layer-information');
+            // Click on first tab
+            $('#sub-dock div.sub-metadata div.menu-content ul li a:first').click();
+
+
         }
     }
 

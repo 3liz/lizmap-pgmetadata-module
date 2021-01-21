@@ -1,5 +1,8 @@
+#sub-dock #pg-metadata-tabs {
+    font-size:0.8em;
+}
+
 #sub-dock #pg-metadata-content {
-    font-size: 0.75em;
     margin-top: 5px;
 }
 #sub-dock #pg-metadata-content h3{
