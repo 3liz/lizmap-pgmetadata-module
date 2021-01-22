@@ -11,17 +11,55 @@ class search
 {
     protected $sql = array(
         // generic
-        'check_pgmetadata_installed' => "SELECT tablename FROM pg_tables WHERE schemaname = 'pgmetadata' AND tablename = 'dataset'",
+        'check_pgmetadata_installed' => "
+            SELECT tablename
+            FROM pg_tables
+            WHERE schemaname = 'pgmetadata'
+            AND tablename = 'dataset'
+        ",
 
         // html export
-        'get_translated_locale_columns' => "SELECT column_name FROM information_schema.columns WHERE table_schema = 'pgmetadata' AND table_name = 'glossary' AND column_name LIKE 'label_%';",
-        'get_dataset_html_content' => 'SELECT pgmetadata.get_dataset_item_html_content($1, $2, $3) AS html',
-        'get_dataset_html_content_default_locale' => 'SELECT pgmetadata.get_dataset_item_html_content($1, $2) AS html',
+        'get_translated_locale_columns' => "
+            SELECT column_name
+            FROM information_schema.columns
+            WHERE table_schema = 'pgmetadata'
+            AND table_name = 'glossary'
+            AND column_name LIKE 'label_%';
+        ",
+        'get_dataset_html_content' => '
+            SELECT pgmetadata.get_dataset_item_html_content($1, $2, $3) AS html
+        ',
+        'get_dataset_html_content_default_locale' => '
+            SELECT pgmetadata.get_dataset_item_html_content($1, $2) AS html
+        ',
 
         // dcat export
-        'check_dcat_support' => "SELECT viewname FROM pg_views WHERE schemaname = 'pgmetadata' AND viewname = 'v_dataset_as_dcat'",
-        'get_rdf_dcat_catalog' => 'SELECT * FROM pgmetadata.get_datasets_as_dcat_xml($1) WHERE True',
-        'get_rdf_dcat_catalog_by_id' => 'SELECT * FROM pgmetadata.get_datasets_as_dcat_xml($1) WHERE uid = $2::uuid',
+        'check_dcat_support' => "
+            SELECT viewname
+            FROM pg_views
+            WHERE schemaname = 'pgmetadata'
+            AND viewname = 'v_dataset_as_dcat'
+        ",
+        'get_rdf_dcat_catalog' => '
+            SELECT *
+            FROM pgmetadata.get_datasets_as_dcat_xml($1)
+            WHERE True
+        ',
+        'get_rdf_dcat_catalog_by_id' => '
+            SELECT *
+            FROM pgmetadata.get_datasets_as_dcat_xml($1)
+            WHERE uid = $2::uuid
+        ',
+        'get_rdf_dcat_catalog_by_query' => "
+            SELECT *
+            FROM pgmetadata.get_datasets_as_dcat_xml($1)
+            WHERE uid IN (
+                SELECT uid
+                FROM pgmetadata.dataset
+                WHERE True
+                AND unaccent($2) ILIKE ANY (regexp_split_to_array(regexp_replace(unaccent(keywords), '( *)?,( *)?', ','), ','))
+            )
+        ",
     );
 
     protected function getSql($option)

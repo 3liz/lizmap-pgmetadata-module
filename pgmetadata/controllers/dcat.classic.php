@@ -9,6 +9,20 @@
  */
 class dcatCtrl extends jController
 {
+    protected $blockSqlWords = array(
+        ';',
+        'select',
+        'delete',
+        'insert',
+        'update',
+        'drop',
+        'alter',
+        '--',
+        'truncate',
+        'vacuum',
+        'create',
+    );
+
     /**
      * Check if a given string is a valid UUID.
      *
@@ -25,6 +39,35 @@ class dcatCtrl extends jController
         return true;
     }
 
+    /**
+     * Check if a given string is a search item.
+     *
+     * @param string $quert The string to check
+     * @param mixed  $query
+     *
+     * @return bool
+     */
+    private function isValidQueryString($query)
+    {
+        // Must contain only alphanumeric chars
+        if (!preg_match('/^([\p{L}a-zA-Z0-9 \-]*)$/ui', $query)) {
+            return false;
+        }
+
+        // Must not contains any SQL block words
+        $query = preg_replace('/ +/', ' ', $query);
+        foreach (explode(' ', $query) as $word) {
+            if (preg_match('#'.implode('|', $this->blockSqlWords).'#i', trim($word))) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * Main entry point for DCAT RDF catalog.
+     */
     public function index()
     {
         $rep = $this->getResponse('xml');
@@ -88,7 +131,25 @@ class dcatCtrl extends jController
 
                 return $rep;
             }
+        } else {
+            // If query string is passed
+            $query = trim($this->param('q', ''));
+
+            // Must not be empty
+            if (!empty($query)) {
+                if (!$this->isValidQueryString($query)) {
+                    // We use a fake UID to get no data
+                    $option = 'get_rdf_dcat_catalog_by_id';
+                    $fake_id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
+                    $filterParams[] = $fake_id;
+                } else {
+                    $option = 'get_rdf_dcat_catalog_by_query';
+                    $filterParams[] = $query;
+                }
+            }
         }
+
+        // Run query
         $result = $search->getData($option, $filterParams, $profile);
 
         // Check if getData doesn't return an error
