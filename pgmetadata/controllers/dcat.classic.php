@@ -177,6 +177,10 @@ class dcatCtrl extends jController
         $tpl->assign($assign);
         $rep->content = $tpl->fetch('pgmetadata~dcat_catalog');
 
+        // Default xml response content-type is: text/xml;charset=UTF-8
+        // Since some harversters need application/xml, override default
+        $rep->addHttpHeader('Content-Type', 'application/xml;charset=UTF-8');
+
         return $rep;
     }
 }
