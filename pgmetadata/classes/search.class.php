@@ -57,7 +57,7 @@ class search
                 SELECT uid
                 FROM pgmetadata.dataset
                 WHERE True
-                AND unaccent($2) ILIKE ANY (regexp_split_to_array(regexp_replace(unaccent(keywords), '( *)?,( *)?', ','), ','))
+                AND unaccent($2) ILIKE ANY (regexp_split_to_array(regexp_replace(unaccent(keywords), '( *)?,( *)?', ',', 'g'), ','))
             )
         ",
     );
