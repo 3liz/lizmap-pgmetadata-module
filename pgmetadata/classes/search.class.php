@@ -47,18 +47,18 @@ class search
         ',
         'get_rdf_dcat_catalog_by_id' => '
             SELECT *
-            FROM pgmetadata.get_datasets_as_dcat_xml($1)
-            WHERE uid = $2::uuid
+            FROM pgmetadata.get_datasets_as_dcat_xml($1, ARRAY[$2::uuid])
         ',
         'get_rdf_dcat_catalog_by_query' => "
-            SELECT *
-            FROM pgmetadata.get_datasets_as_dcat_xml($1)
-            WHERE uid IN (
-                SELECT uid
-                FROM pgmetadata.dataset
+            WITH u AS (
+                SELECT Coalesce(array_agg(d.uid), ARRAY[]::uuid[]) AS uids
+                FROM pgmetadata.dataset AS d
                 WHERE True
-                AND unaccent($2) ILIKE ANY (regexp_split_to_array(regexp_replace(unaccent(keywords), '( *)?,( *)?', ',', 'g'), ','))
+                AND unaccent($2) ILIKE ANY (regexp_split_to_array(regexp_replace(unaccent(d.keywords), '( *)?,( *)?', ',', 'g'), ','))
             )
+            SELECT dc.*
+            FROM u,
+            pgmetadata.get_datasets_as_dcat_xml($1, u.uids) AS dc
         ",
     );
 
