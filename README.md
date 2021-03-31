@@ -1,4 +1,4 @@
-## PgMetadata Module
+# PgMetadata Module
 
 This module is designed for Lizmap Web Client, and allows displaying PostgreSQL layers metadata stored in the
 layer database.
@@ -8,30 +8,57 @@ The metadata must be created in the PostgreSQL database as designed in the
 
 ![Metadata information panel](metadata_information_panel.jpeg)
 
-### Installation
+## Installation
 
 Once Lizmap Web Client application is installed and working, you can install the pgmetadata module:
+
+Since version 0.2.4, it is recommended to install the module
+with [Composer](https://getcomposer.org), the package manager for PHP.
+If you can't use it or if you are using Lizmap 3.3 or lower, use the manual way to
+install the module (jump to the corresponding section below)
+
+### Automatic install with Composer and lizmap 3.4 or higher
+
+* into `lizmap/my-packages`, create the file `composer.json` (if it doesn't exists)
+  by copying the file `composer.json.dist`, and install the modules with Composer:
+
+```bash
+cp -n lizmap/my-packages/composer.json.dist lizmap/my-packages/composer.json
+composer require --working-dir=lizmap/my-packages "lizmap/lizmap-pgmetadata-module"
+```
+
+* Then execute Lizmap install scripts into `lizmap/install/` :
+
+```bash
+php lizmap/install/installer.php
+./lizmap/install/clean_vartmp.sh
+./lizmap/install/set_rights.sh
+```
+
+Go to the next section "Publish your metadata as a DCAT catalog".
+
+### Manual installation into lizmap 3.3 or 3.4 without Composer
 
 * Get the last ZIP archive in the [release page](https://github.com/3liz/lizmap-pgmetadata-module/releases) of
   the github repository.
 * Extract the archive and copy the `pgmetadata` directory in Lizmap Web Client folder `lizmap/lizmap-modules/`
-* Edit the config file `lizmap/var/config/localconfig.ini.php` and add (or adapt) the section `[modules]` by
-  adding the `pgmetadata.access=2`
+* Edit the config file `lizmap/var/config/localconfig.ini.php` and add into 
+  the section `[modules]`:
 
 ```ini
-[modules]
 pgmetadata.access=2
 ```
 
-* Run Lizmap Web Client installer
+* Then execute Lizmap install scripts into `lizmap/install/` :
 
 ```bash
 php lizmap/install/installer.php
-lizmap/install/clean_vartmp.sh
-lizmap/install/set_rights.sh
+./lizmap/install/clean_vartmp.sh
+./lizmap/install/set_rights.sh
 ```
 
-### Publish your metadata as a DCAT catalog
+
+## Publish your metadata as a DCAT catalog
 
 If you need to publish your metadata catalog as an RDF catalog, for example to be harvested by a third-party
 metadata platform such as Ckan, you need to declare in the file `lizmap/var/config/profiles.ini.php` a new

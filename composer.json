@@ -22,7 +22,14 @@
         "jelix" : {
             "modules": [
                 "pgmetadata/"
-            ]
+            ],
+            "autoconfig-access-16" : {
+                "lizmap@3liz.com" : {
+                    "pgmetadata": {
+                        "__global": 2
+                    }
+                }
+            }
         }
     }
 }
