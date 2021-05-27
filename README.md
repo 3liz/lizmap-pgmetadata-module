@@ -1,7 +1,12 @@
 # PgMetadata Module
 
-This module is designed for Lizmap Web Client, and allows displaying PostgreSQL layers metadata stored in the
-layer database.
+[![Lint JS 🎳](https://github.com/3liz/lizmap-pgmetadata-module/actions/workflows/test-lint-js.yml/badge.svg)](https://github.com/3liz/lizmap-pgmetadata-module/actions/workflows/test-lint-js.yml)
+[![Lint PHP 🎳](https://github.com/3liz/lizmap-pgmetadata-module/actions/workflows/test-lint-php.yml/badge.svg)](https://github.com/3liz/lizmap-pgmetadata-module/actions/workflows/test-lint-php.yml)
+[![Release 🚀](https://github.com/3liz/lizmap-pgmetadata-module/actions/workflows/release.yml/badge.svg)](https://github.com/3liz/lizmap-pgmetadata-module/actions/workflows/release.yml)
+[![Packagist](https://img.shields.io/packagist/v/lizmap/lizmap-pgmetadata-module)](https://packagist.org/packages/lizmap/lizmap-pgmetadata-module)
+
+This module is designed for [Lizmap Web Client](https://github.com/3liz/lizmap-web-client/), and allows 
+displaying PostgreSQL layers metadata stored in the layer database.
 
 The metadata must be created in the PostgreSQL database as designed in the
 [PgMetadata QGIS plugin](https://github.com/3liz/qgis-pgmetadata-plugin).
@@ -17,9 +22,9 @@ with [Composer](https://getcomposer.org), the package manager for PHP.
 If you can't use it or if you are using Lizmap 3.3 or lower, use the manual way to
 install the module (jump to the corresponding section below)
 
-### Automatic install with Composer and lizmap 3.4 or higher
+### Automatic installation with Composer and lizmap 3.4 or higher
 
-* into `lizmap/my-packages`, create the file `composer.json` (if it doesn't exists)
+* into `lizmap/my-packages`, create the file `composer.json` (if it doesn't exist)
   by copying the file `composer.json.dist`, and install the modules with Composer:
 
 ```bash
@@ -40,7 +45,7 @@ Go to the next section "Publish your metadata as a DCAT catalog".
 ### Manual installation into lizmap 3.3 or 3.4 without Composer
 
 * Get the last ZIP archive in the [release page](https://github.com/3liz/lizmap-pgmetadata-module/releases) of
-  the github repository.
+  the GitHub repository.
 * Extract the archive and copy the `pgmetadata` directory in Lizmap Web Client folder `lizmap/lizmap-modules/`
 * Edit the config file `lizmap/var/config/localconfig.ini.php` and add into 
   the section `[modules]`:
@@ -56,7 +61,6 @@ php lizmap/install/installer.php
 ./lizmap/install/clean_vartmp.sh
 ./lizmap/install/set_rights.sh
 ```
-
 
 ## Publish your metadata as a DCAT catalog
 

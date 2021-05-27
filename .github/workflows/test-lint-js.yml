@@ -1,12 +1,12 @@
-name: Tests 🎳
+name: Lint JS 🎳
 
 on:
   push:
-#    paths:
-#      - '**.js'
+    paths:
+      - '**.js'
   pull_request:
-#    paths:
-#      - '**.js'
+    paths:
+      - '**.js'
 
 jobs:
   eslint:
