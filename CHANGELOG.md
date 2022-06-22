@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Experimental compatibility with Lizmap 3.6
+
 ## 0.2.4 - 2021-03-31
 
 * Configuration to install the module with Composer
