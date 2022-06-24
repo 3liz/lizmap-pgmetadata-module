@@ -32,18 +32,21 @@ cp -n lizmap/my-packages/composer.json.dist lizmap/my-packages/composer.json
 composer require --working-dir=lizmap/my-packages "lizmap/lizmap-pgmetadata-module"
 ```
 
-* If you are using Lizmap 3.6 or higher, execute 
+* Then go into `lizmap/install/` and execute Lizmap install scripts :
+
+
+If you are using Lizmap 3.6 or higher, first execute 
 
 ```bash
-php lizmap/install/configurator.php
+php configurator.php pgmetadata
 ```
 
-* Then execute Lizmap install scripts into `lizmap/install/` :
+Then, for Lizmap 3.4 and higher:
 
 ```bash
-php lizmap/install/installer.php
-./lizmap/install/clean_vartmp.sh
-./lizmap/install/set_rights.sh
+php installer.php
+./clean_vartmp.sh
+./set_rights.sh
 ```
 
 Go to the next section "Publish your metadata as a DCAT catalog".
@@ -63,7 +66,7 @@ pgmetadata.access=2
 * If you are using Lizmap 3.6 or higher, execute
 
 ```bash
-php lizmap/install/configurator.php
+php lizmap/install/configurator.php pgmetadata
 ```
 
 * Then execute Lizmap install scripts into `lizmap/install/` :
