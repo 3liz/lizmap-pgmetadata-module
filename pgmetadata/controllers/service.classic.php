@@ -79,9 +79,9 @@ class serviceCtrl extends jController
         $profile = $layer->getDatasourceProfile();
 
         // Check if pgmetadata.dataset exists in the layer database
-        $search = new \PgMetaData\Search();
+        $search = new \PgMetaData\HtmlExport($profile);
 
-        $result = $search->checkPgMetadataInstalled($profile);
+        $result = $search->checkPgMetadataInstalled();
         if ($result['status'] == 'error') {
             $rep->data = $result;
 
@@ -104,7 +104,7 @@ class serviceCtrl extends jController
         }
 
         // Check if the database glossary table contains locale label_XX columns
-        $result = $search->getTranslatedLocaleColumns($profile);
+        $result = $search->getTranslatedLocaleColumns();
 
         // Check if getData doesn't return an error
         if ($result['status'] == 'error') {
@@ -116,9 +116,9 @@ class serviceCtrl extends jController
         // Check if no locales label_xx columns were returned
         // We then need to use the old get html function
         if (empty($result['data'])) {
-            $result = $search->getDatasetHtmlContentDefaultLocale($schema, $tablename, $profile);
+            $result = $search->getDatasetHtmlContentDefaultLocale($schema, $tablename);
         } else {
-            $result = $search->getDatasetHtmlContent($schema, $tablename, $locale, $profile);
+            $result = $search->getDatasetHtmlContent($schema, $tablename, $locale);
         }
 
         // Check if getData doesn't return an error
