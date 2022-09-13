@@ -73,24 +73,6 @@ class dcatCtrl extends jController
     {
         $rep = $this->getResponse('xml');
 
-        $search = new \PgMetaData\Search();
-
-        // Check pgmetadata needed view exists in profile 'pgmetadata'
-        // Else try with defaut
-        // Return empty content on failure
-        $profiles = array('pgmetadata', null);
-        $ok = false;
-        $p = null;
-        foreach ($profiles as $profile) {
-            $result = $search->checkDCatSupport($profile);
-            if ($result['status'] == 'success' && !empty($result['status'])) {
-                $ok = true;
-                $p = $profile;
-
-                break;
-            }
-        }
-
         // Generate empty content from template
         $tpl = new jTpl();
         $assign = array();
@@ -100,14 +82,13 @@ class dcatCtrl extends jController
         $tpl->assign($assign);
         $empty_content = $tpl->fetch('pgmetadata~dcat_catalog');
 
-        // Return empty content if needed
-        if (!$ok) {
+        try {
+            $search = new \PgMetaData\RDFDCat();
+        } catch (\PgMetaData\DCatSupportException $e) {
             $rep->content = $empty_content;
 
             return $rep;
         }
-
-        $profile = $p;
 
         // Get current locale: en, fr, etc.
         $locale = jLocale::getCurrentLang();
@@ -120,7 +101,7 @@ class dcatCtrl extends jController
 
         if (!empty($id)) {
             if ($this->isValidUuid($id)) {
-                $result = $search->getRDFDcatCatalogById($locale, $id, $profile);
+                $result = $search->getRDFDcatCatalogById($locale, $id);
             } else {
                 $rep->content = $empty_content;
 
@@ -135,12 +116,12 @@ class dcatCtrl extends jController
                 if (!$this->isValidQueryString($query)) {
                     // We use a fake UID to get no data
                     $fake_id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
-                    $result = $search->getRDFDcatCatalogById($locale, $fake_id, $profile);
+                    $result = $search->getRDFDcatCatalogById($locale, $fake_id);
                 } else {
-                    $result = $search->getRDFDcatCatalogByQuery($locale, $query, $profile);
+                    $result = $search->getRDFDcatCatalogByQuery($locale, $query);
                 }
             } else {
-                $result = $search->getRDFDcatCatalog($locale, $profile);
+                $result = $search->getRDFDcatCatalog($locale);
             }
         }
 
