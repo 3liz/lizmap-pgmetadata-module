@@ -75,7 +75,7 @@ class dcatCtrl extends jController
         $project = $this->param('project');
         $repository = $this->param('repository');
         $option = 'get_dcat_rdf_catalog';
-        $search = jClasses::getService('pgmetadata~search');
+        $search = new \PgMetaData\Search();
 
         // Check pgmetadata needed view exists in profile 'pgmetadata'
         // Else try with defaut

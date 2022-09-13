@@ -1,13 +1,18 @@
 <?php
 /**
  * @author    Pierre DRILLIN
- * @copyright 2020 3liz
+ * @author    Laurent Jouanneau
+ * @copyright 2020-2022 3liz
  *
  * @see      https://3liz.com
  *
  * @license    Mozilla Public Licence
  */
-class search
+
+namespace PgMetadata;
+
+
+class Search
 {
     protected $sql = array(
         // generic
