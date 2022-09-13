@@ -1,7 +1,8 @@
 <?php
 /**
  * @author    Pierre DRILLIN
- * @copyright 2020 3liz
+ * @author    Laurent Jouanneau
+ * @copyright 2020-2022 3liz
  *
  * @see      https://3liz.com
  *
@@ -12,8 +13,6 @@ class serviceCtrl extends jController
     public function index()
     {
         $rep = $this->getResponse('json');
-        $result = null;
-        $filterParams = array();
 
         // Get parameters
         $project = $this->param('project');
@@ -75,8 +74,6 @@ class serviceCtrl extends jController
         if (empty($schema)) {
             $schema = 'public';
         }
-        $filterParams[] = $schema;
-        $filterParams[] = $tablename;
 
         // Get layer profile
         $profile = $layer->getDatasourceProfile();
@@ -84,7 +81,7 @@ class serviceCtrl extends jController
         // Check if pgmetadata.dataset exists in the layer database
         $search = new \PgMetaData\Search();
 
-        $result = $search->getData('check_pgmetadata_installed', array(), $profile);
+        $result = $search->checkPgMetadataInstalled($profile);
         if ($result['status'] == 'error') {
             $rep->data = $result;
 
@@ -107,7 +104,7 @@ class serviceCtrl extends jController
         }
 
         // Check if the database glossary table contains locale label_XX columns
-        $result = $search->getData('get_translated_locale_columns', array(), $profile);
+        $result = $search->getTranslatedLocaleColumns($profile);
 
         // Check if getData doesn't return an error
         if ($result['status'] == 'error') {
@@ -119,14 +116,10 @@ class serviceCtrl extends jController
         // Check if no locales label_xx columns were returned
         // We then need to use the old get html function
         if (empty($result['data'])) {
-            $option = 'get_dataset_html_content_default_locale';
+            $result = $search->getDatasetHtmlContentDefaultLocale($schema, $tablename, $profile);
         } else {
-            $option = 'get_dataset_html_content';
-            $filterParams[] = $locale;
+            $result = $search->getDatasetHtmlContent($schema, $tablename, $locale, $profile);
         }
-
-        // Get metadata HTML content for the layer
-        $result = $search->getData($option, $filterParams, $profile);
 
         // Check if getData doesn't return an error
         if ($result['status'] == 'error') {

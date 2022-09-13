@@ -1,7 +1,8 @@
 <?php
 /**
  * @author    Michaël DOUCHIN
- * @copyright 2020 3liz
+ * @author    Laurent Jouanneau
+ * @copyright 2020-2022 3liz
  *
  * @see      https://3liz.com
  *
@@ -72,9 +73,6 @@ class dcatCtrl extends jController
     {
         $rep = $this->getResponse('xml');
 
-        $project = $this->param('project');
-        $repository = $this->param('repository');
-        $option = 'get_dcat_rdf_catalog';
         $search = new \PgMetaData\Search();
 
         // Check pgmetadata needed view exists in profile 'pgmetadata'
@@ -84,7 +82,7 @@ class dcatCtrl extends jController
         $ok = false;
         $p = null;
         foreach ($profiles as $profile) {
-            $result = $search->getData('check_dcat_support', array(), $profile);
+            $result = $search->checkDCatSupport($profile);
             if ($result['status'] == 'success' && !empty($result['status'])) {
                 $ok = true;
                 $p = $profile;
@@ -110,22 +108,19 @@ class dcatCtrl extends jController
         }
 
         $profile = $p;
-        $filterParams = array();
 
         // Get current locale: en, fr, etc.
         $locale = jLocale::getCurrentLang();
         if (strlen($locale) != 2) {
             $locale = 'en';
         }
-        $filterParams[] = $locale;
 
         // If id is passed as parameter, filter by this UUID
         $id = trim($this->param('id', ''));
-        $option = 'get_rdf_dcat_catalog';
+
         if (!empty($id)) {
             if ($this->isValidUuid($id)) {
-                $option = 'get_rdf_dcat_catalog_by_id';
-                $filterParams[] = $id;
+                $result = $search->getRDFDcatCatalogById($locale, $id, $profile);
             } else {
                 $rep->content = $empty_content;
 
@@ -139,18 +134,15 @@ class dcatCtrl extends jController
             if (!empty($query)) {
                 if (!$this->isValidQueryString($query)) {
                     // We use a fake UID to get no data
-                    $option = 'get_rdf_dcat_catalog_by_id';
                     $fake_id = 'a0eebc99-9c0b-4ef8-bb6d-6bb9bd380a11';
-                    $filterParams[] = $fake_id;
+                    $result = $search->getRDFDcatCatalogById($locale, $fake_id, $profile);
                 } else {
-                    $option = 'get_rdf_dcat_catalog_by_query';
-                    $filterParams[] = $query;
+                    $result = $search->getRDFDcatCatalogByQuery($locale, $query, $profile);
                 }
+            } else {
+                $result = $search->getRDFDcatCatalog($locale, $profile);
             }
         }
-
-        // Run query
-        $result = $search->getData($option, $filterParams, $profile);
 
         // Check if getData doesn't return an error
         if ($result['status'] == 'error') {
@@ -162,7 +154,7 @@ class dcatCtrl extends jController
         $content = '';
 
         foreach ($datasets as $dataset) {
-            $dataset_url = $url = jUrl::getFull(
+            $dataset_url = jUrl::getFull(
                 'pgmetadata~dcat:index',
                 array('id' => $dataset->uid)
             );
