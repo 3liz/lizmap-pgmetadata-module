@@ -79,10 +79,10 @@ class Search
     public function query($sql, $filterParams, $profile)
     {
         if ($profile) {
-            $cnx = jDb::getConnection($profile);
+            $cnx = \jDb::getConnection($profile);
         } else {
             // Default connection
-            $cnx = jDb::getConnection();
+            $cnx = \jDb::getConnection();
         }
 
         $resultset = $cnx->prepare($sql);
@@ -115,7 +115,7 @@ class Search
 
         try {
             $result = $this->query($sql, $filterParams, $profile);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return array(
                 'status' => 'error',
                 'message' => 'Error at the query concerning '.$option,
