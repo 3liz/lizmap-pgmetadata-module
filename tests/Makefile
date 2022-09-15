@@ -72,3 +72,7 @@ pull:
 	docker pull 3liz/lizmap-web-client:${LIZMAP_VERSION_TAG}
 	docker pull 3liz/qgis-map-server:${QGIS_VERSION_TAG}
 	docker pull 3liz/postgis:${POSTGIS_VERSION_TAG}
+
+
+shell:
+	docker compose exec -u ${LIZMAP_USER_ID} lizmap /bin/sh -l

@@ -39,6 +39,11 @@ instead of the other credentials (host, port, database name, user and password).
 psql service=lizmap-pgmetadata
 ```
 
+## Access to the lizmap container
+
+If you want to enter into the lizmap container to execute some commands, 
+execute `make shell`.
+
 ## Add the test data
 
 You can add some nodes and edges in your docker test PostgreSQL database by running the SQL `tests/sql/test_data.sql`.
