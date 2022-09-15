@@ -26,7 +26,7 @@ class RDFDCat extends AbstractSearch
         $profiles = array('pgmetadata', null);
         foreach ($profiles as $profile) {
             $result = $this->checkDCatSupport($profile);
-            if ($result['status'] == 'success' && !empty($result['status'])) {
+            if ($result['status'] == 'success' && count($result['data'])) {
                 $ok = true;
                 $this->dbProfile = $profile;
 
@@ -36,6 +36,11 @@ class RDFDCat extends AbstractSearch
         if (!$ok) {
             throw new DCatSupportException('Schema pgmetadata not found');
         }
+    }
+
+    public function getProfile()
+    {
+        return $this->dbProfile;
     }
 
     protected function checkDCatSupport($profile)
