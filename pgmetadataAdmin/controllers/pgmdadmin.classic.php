@@ -25,6 +25,9 @@ class pgmdadminCtrl extends jController
             // we get possible existing parameters that we don't edit
             $profile = jProfiles::get('jdb', 'pgmetadata', true);
             unset($profile['_name']);
+            if (!isset($profile['port']) || $profile['port'] == '') {
+                $profile['port'] = '5432';
+            }
         }
         catch (\jException $e) {
             // profile unknown

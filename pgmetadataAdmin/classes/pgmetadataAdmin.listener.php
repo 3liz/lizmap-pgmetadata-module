@@ -12,16 +12,20 @@ class pgmetadataAdminListener extends jEventListener
     public function onmasteradminGetMenuContent($event)
     {
         if (jAcl2::check('lizmap.admin.access')) {
-            $item = new masterAdminMenuItem(
+            $bloc = new masterAdminMenuItem(
+                'pgmetadataAdmin',
+                jLocale::get("pgmetadataAdmin~admin.menu.item.label"),
+                '',
+                50);
+
+            $bloc->childItems[] = new masterAdminMenuItem(
                 'pgmetadata_config',
-                jLocale::get('pgmetadataAdmin~admin.menu.item.label'),
-                jUrl::get('pgmetadataAdmin~pgmdadmin:index'),
-                119,
-                'lizmap'
+                jLocale::get("pgmetadataAdmin~admin.menu.configuration.label"),
+                jUrl::get('pgmetadataAdmin~pgmdadmin:index'), 122
             );
 
             // Add the bloc
-            $event->add($item);
+            $event->add($bloc);
         }
     }
 
