@@ -22,8 +22,6 @@ class pgmetadataAdminListener extends jEventListener
 
             // Add the bloc
             $event->add($item);
-
-
         }
     }
 
