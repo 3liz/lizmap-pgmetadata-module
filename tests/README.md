@@ -1,8 +1,8 @@
-# Run Lizmap stack with docker-compose
+# Run Lizmap stack with docker compose
 
 Steps:
 
-- Launch Lizmap with docker-compose
+- Launch Lizmap with docker compose
     ```
     # Clean previous versions (optional)
     make clean
@@ -15,7 +15,7 @@ Steps:
 
 - Open your browser at `http://localhost:9095`
 
-For more information, refer to the [docker-compose documentation](https://docs.docker.com/compose/)
+For more information, refer to the [docker compose documentation](https://docs.docker.com/compose/)
 
 ## Access to the dockerized PostgreSQL instance
 
@@ -46,10 +46,14 @@ execute `make shell`.
 
 ## Add the test data
 
-You can add some nodes and edges in your docker test PostgreSQL database by running the SQL `tests/sql/test_data.sql`.
+You can add some data in your docker test PostgreSQL database by running the SQL `tests/sql/test_data.sql`.
 
+```bash
+make import-data
+```
+or
 ```bash
 psql service=lizmap-pgmetadata -f tests/sql/test_data.sql
 ```
 
-Then you can try the Lizmap test map.
+Then you can try the [Lizmap test map](http://localhost:9095/index.php/view/map/?repository=pgmetadata&project=pgmetadata).
