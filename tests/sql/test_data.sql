@@ -656,7 +656,7 @@ COMMENT ON FUNCTION pgmetadata.update_table_comment_from_dataset() IS 'Update th
 
 SET default_tablespace = '';
 
-SET default_table_access_method = heap;
+-- SET default_table_access_method = heap;
 
 --
 -- Name: contact; Type: TABLE; Schema: pgmetadata; Owner: -
@@ -2990,4 +2990,3 @@ ALTER TABLE ONLY pgmetadata.link
 --
 -- PostgreSQL database dump complete
 --
-

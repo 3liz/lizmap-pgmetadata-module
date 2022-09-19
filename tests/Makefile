@@ -9,7 +9,7 @@ LIZMAP_USER_ID:=$(shell id -u)
 LIZMAP_USER_GID:=$(shell id -g)
 
 LIZMAP_VERSION_TAG:=3.5
-QGIS_VERSION_TAG:=3.16
+QGIS_VERSION_TAG:=3.22
 POSTGIS_VERSION_TAG:=11-2.5
 
 QGIS_MAP_WORKERS:=1
@@ -29,15 +29,16 @@ main:
 			stop:  stop docker and remove containers
 			clean: reset containers and remove lizmap configuration
 
-			Note: Un fichier d'environment pour docker-compose
+			Note: Un fichier d'environment pour docker compose
 			est crée à chaque invocation de 'run'.
-			Cela permet d'utiliser les commandes 'docker-compose'
+			Cela permet d'utiliser les commandes 'docker compose'
 			sans passer par le Makefile
 	EOF
 
 dirs:
 	@mkdir -p $(LIZMAP_DIR)/var/log/nginx \
 		      $(LIZMAP_DIR)/var/nginx-cache \
+		      $(LIZMAP_DIR)/qgis-server-plugins \
 		      $*
 
 env: dirs
@@ -56,14 +57,14 @@ env: dirs
 		POSTGIS_VERSION_TAG=$(POSTGIS_VERSION_TAG)
 		EOF
 
-run: stop env
-	docker-compose up
+run: stop env install-plugins
+	docker compose up
 
 stop:
-	docker-compose down || true
+	docker compose down || true
 
 clean: stop
-	docker-compose down -v
+	docker compose down -v
 	rm -rf $(LIZMAP_DIR)/www/*
 	rm -rf $(LIZMAP_DIR)/var/*
 
@@ -73,6 +74,18 @@ pull:
 	docker pull 3liz/qgis-map-server:${QGIS_VERSION_TAG}
 	docker pull 3liz/postgis:${POSTGIS_VERSION_TAG}
 
-
 shell:
 	docker compose exec -u ${LIZMAP_USER_ID} lizmap /bin/sh -l
+
+install-plugins:
+	docker run \
+	    -u $(LIZMAP_USER_ID):$(LIZMAP_USER_GID) \
+	    --rm -it \
+	    -e QGSRV_SERVER_PLUGINPATH=/srv/plugins \
+	    -v $(LIZMAP_DIR)/qgis-server-plugins:/srv/plugins \
+	    -v $(shell pwd)/:/src \
+	    --entrypoint /src/add-server-plugins.sh \
+	    3liz/qgis-map-server:${QGIS_VERSION_TAG}
+
+import-data:
+	export PGPASSWORD=lizmap1234!; psql -h localhost -U lizmap -d lizmap -p 9097 -f sql/test_data.sql
