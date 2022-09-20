@@ -83,8 +83,8 @@ class dcatCtrl extends jController
         $empty_content = $tpl->fetch('pgmetadata~dcat_catalog');
 
         try {
-            $search = new \PgMetaData\RDFDCat();
-        } catch (\PgMetaData\DCatSupportException $e) {
+            $search = new \PgMetadata\RDFDCat();
+        } catch (\PgMetadata\DCatSupportException $e) {
             $rep->content = $empty_content;
 
             return $rep;

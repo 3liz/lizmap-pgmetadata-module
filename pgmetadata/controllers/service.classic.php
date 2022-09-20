@@ -79,7 +79,7 @@ class serviceCtrl extends jController
         $profile = $layer->getDatasourceProfile();
 
         // Check if pgmetadata.dataset exists in the layer database
-        $search = new \PgMetaData\HtmlExport($profile);
+        $search = new \PgMetadata\HtmlExport($profile);
 
         $result = $search->checkPgMetadataInstalled();
         if ($result['status'] == 'error') {
