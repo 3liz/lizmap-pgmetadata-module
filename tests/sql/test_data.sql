@@ -2288,7 +2288,7 @@ COPY pgmetadata.html_template (id, section, content) FROM stdin;
 
 COPY pgmetadata.link (id, name, type, url, description, format, mime, size, fk_id_dataset) FROM stdin;
 2	OSM OverPass Turbo data access	WWW:LINK	https://overpass-turbo.eu/s/1bzv	Service WFS pour récupérer les données	\N	html	\N	4
-1	Web page with description	WWW:LINK	https://docs.World.org/qgis-pgmetadata-plugin/	Web page containing details about this dataset	\N	html	\N	4
+1	Web page with description	WWW:LINK	https://docs.3liz.org/qgis-pgmetadata-plugin/	Web page containing details about this dataset	\N	html	\N	4
 \.
 
 

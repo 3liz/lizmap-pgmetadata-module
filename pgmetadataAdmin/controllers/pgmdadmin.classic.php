@@ -55,7 +55,7 @@ class pgmdadminCtrl extends jController
             $checker = new \PgMetadata\RDFDCatChecker();
             $result = $checker->checkDCatSupport('pgmetadata');
 
-        } catch (\PgMetaData\DCatSupportException $e) {
+        } catch (\PgMetadata\DCatSupportException $e) {
             $rep->data = array (
                 'status' => 'error',
                 'reason' => 'bad_profile'
@@ -90,7 +90,7 @@ class pgmdadminCtrl extends jController
 
         try {
             $result = $checker->checkDCatSupport('');
-        } catch (\PgMetaData\DCatSupportException $e) {
+        } catch (\PgMetadata\DCatSupportException $e) {
             $rep->data = array (
                 'status' => 'error',
                 'reason' => 'bad_profile'
@@ -148,7 +148,7 @@ class pgmdadminCtrl extends jController
             // RDFDCat search the profile that is used for
             $checker = new \PgMetadata\RDFDCatChecker();
             $result = $checker->checkDCatSupport('pgmetadata');
-        } catch (\PgMetaData\DCatSupportException $e) {
+        } catch (\PgMetadata\DCatSupportException $e) {
             $rep->data = array (
                 'status' => 'error',
                 'reason' => 'bad_profile'
