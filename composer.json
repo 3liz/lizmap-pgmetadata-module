@@ -35,7 +35,7 @@
                         "index" : 2
                     },
                     "pgmetadataAdmin": {
-                        "__global": 1,
+                        "__global": 2,
                         "admin" : 2
                     }
                 }
