@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.0.2 - 2022-09-21
+
+* rewording some messages
+
 ## 1.0.1 - 2022-09-21
 
 * Fix automatic setup of module pgmetadataAdmin for Lizmap 3.5/3.4 
