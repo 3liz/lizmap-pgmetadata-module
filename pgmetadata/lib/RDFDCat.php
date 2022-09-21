@@ -38,8 +38,7 @@ class RDFDCat extends AbstractSearch
 
                     break;
                 }
-            }
-            catch(DCatSupportException $e) {
+            } catch (DCatSupportException $e) {
                 // ignore connection errors
             }
         }
