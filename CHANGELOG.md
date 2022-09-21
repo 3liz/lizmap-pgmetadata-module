@@ -3,9 +3,8 @@
 ## 1.0.0
 
 * Compatibility with Lizmap 3.6
-* New administration interface to setup postgresql access to the pgmetadata schema
-
-* for developers: new tests environment 
+* New administration interface to setup PostgreSQL access to the `pgmetadata` schema
+* For developers: new tests environment
 
 ## 0.2.4 - 2021-03-31
 
