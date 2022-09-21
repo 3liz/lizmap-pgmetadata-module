@@ -1,0 +1,34 @@
+
+
+.pgmd-ok_profile_ok_view,
+.pgmd-bad_profile,
+.pgmd-ok_profile_no_view,
+.pgmd-no_profile_ok_view,
+.pgmd-no_profile_no_view,
+.pgmd-modify_credentials,
+.pgmd-create_credentials,
+.pgmd-no_database,
+.pgmd-saving
+{
+    display:none;
+}
+
+.pgmd-ok_profile_ok_view.pgmd-show,
+.pgmd-bad_profile.pgmd-show,
+.pgmd-ok_profile_no_view.pgmd-show,
+.pgmd-no_profile_ok_view.pgmd-show,
+.pgmd-no_profile_no_view.pgmd-show,
+.pgmd-modify_credentials.pgmd-show,
+.pgmd-create_credentials.pgmd-show,
+.pgmd-no_database.pgmd-show,
+.pgmd-saving.pgmd-show
+{
+    display: block;
+}
+
+
+#pgmd-profile input:invalid {
+    background-color: ivory;
+    border: none;
+    outline: 2px solid red;
+}

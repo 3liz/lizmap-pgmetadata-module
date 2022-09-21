@@ -39,6 +39,7 @@ abstract class AbstractSearch
         } catch (\Exception $e) {
             return array(
                 'status' => 'error',
+                'code' => 1,
                 'message' => 'Error at the query concerning '.$queryName,
             );
         }
@@ -46,12 +47,14 @@ abstract class AbstractSearch
         if (!$result) {
             return array(
                 'status' => 'error',
+                'code' => 2,
                 'message' => 'Error at the query concerning '.$queryName,
             );
         }
 
         return array(
             'status' => 'success',
+            'code' => 0,
             'data' => $result->fetchAll(),
         );
     }

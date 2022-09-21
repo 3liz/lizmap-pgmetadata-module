@@ -31,6 +31,7 @@ services:
       - ${LIZMAP_DIR}/var/lizmap-temp:/www/temp/lizmap/
       - ${LIZMAP_DIR}/etc:/srv/etc:ro
       - ${PGMETADATA_MODULE_SRC}/pgmetadata:/www/lizmap/lizmap-modules/pgmetadata
+      - ${PGMETADATA_MODULE_SRC}/pgmetadataAdmin:/www/lizmap/lizmap-modules/pgmetadataAdmin
     command:
       - php-fpm
     restart: unless-stopped

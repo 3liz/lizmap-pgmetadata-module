@@ -5,6 +5,9 @@
 .php_cs.cache
 .php-cs-fixer.cache
 
+# VSCodium
+.code-workspace
+
 # Node, NPM
 node_modules
 

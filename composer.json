@@ -25,13 +25,18 @@
     "extra" : {
         "jelix" : {
             "modules": [
-                "pgmetadata/"
+                "pgmetadata/",
+                "pgmetadataAdmin/"
             ],
             "autoconfig-access-16" : {
                 "lizmap@3liz.com" : {
                     "pgmetadata": {
                         "__global": 1,
                         "index" : 2
+                    },
+                    "pgmetadataAdmin": {
+                        "__global": 1,
+                        "admin" : 2
                     }
                 }
             }

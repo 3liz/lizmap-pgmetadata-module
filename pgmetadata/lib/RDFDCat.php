@@ -18,19 +18,28 @@ class RDFDCat extends AbstractSearch
      */
     protected $dbProfile;
 
+    /**
+     * @throws DCatSupportException
+     */
     public function __construct()
     {
         // Check pgmetadata needed view exists in profile 'pgmetadata'
-        // Else try with defaut
+        // Else try with default
         $ok = false;
-        $profiles = array('pgmetadata', null);
-        foreach ($profiles as $profile) {
-            $result = $this->checkDCatSupport($profile);
-            if ($result['status'] == 'success' && count($result['data'])) {
-                $ok = true;
-                $this->dbProfile = $profile;
+        $profiles = array('pgmetadata', '');
+        $checker = new RDFDCatChecker();
 
-                break;
+        foreach ($profiles as $profile) {
+            try {
+                $result = $checker->checkDCatSupport($profile);
+                if ($result == $checker::STATUS_OK) {
+                    $ok = true;
+                    $this->dbProfile = $profile;
+
+                    break;
+                }
+            } catch (DCatSupportException $e) {
+                // ignore connection errors
             }
         }
         if (!$ok) {
@@ -41,16 +50,6 @@ class RDFDCat extends AbstractSearch
     public function getProfile()
     {
         return $this->dbProfile;
-    }
-
-    protected function checkDCatSupport($profile)
-    {
-        return $this->doQuery("
-            SELECT viewname
-            FROM pg_views
-            WHERE schemaname = 'pgmetadata'
-            AND viewname = 'v_dataset_as_dcat'
-        ", array(), $profile, 'checkDCatSupport');
     }
 
     public function getRDFDcatCatalog($locale)

@@ -1,0 +1,5 @@
+<events xmlns="https://jelix.org/ns/events/1.0">
+   <listener name="pgmetadataAdmin">
+       <event name="masteradminGetMenuContent" />
+   </listener>
+</events>
