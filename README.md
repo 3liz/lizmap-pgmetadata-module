@@ -55,18 +55,25 @@ Go to the next section "Publish your metadata as a DCAT catalog".
 
 * Get the last ZIP archive in the [release page](https://github.com/3liz/lizmap-pgmetadata-module/releases) of
   the GitHub repository.
-* Extract the archive and copy the `pgmetadata` directory in Lizmap Web Client folder `lizmap/lizmap-modules/`
+* Extract the archive and copy the `pgmetadata` and `pgmetadataAdmin` directories in Lizmap Web Client folder `lizmap/lizmap-modules/`
 * Edit the config file `lizmap/var/config/localconfig.ini.php` and add into 
   the section `[modules]`:
 
 ```ini
 pgmetadata.access=2
+pgmetadataAdmin.access=2
 ```
+* Add into the section `[simple_urlengine_entrypoints]`:
+```ini
+admin="jacl2db~*@classic,jacl2db_admin~*@classic,jauthdb_admin~*@classic,master_admin~*@classic,admin~*@classic,jcommunity~*@classic,pgmetadataAdmin~*@classic"
+```
+If the parameter already exists, add `,pgmetadataAdmin~*@classic` into the value.
 
 * If you are using Lizmap 3.6 or higher, execute
 
 ```bash
 php lizmap/install/configurator.php pgmetadata
+php lizmap/install/configurator.php pgmetadataAdmin
 ```
 
 * Then execute Lizmap install scripts into `lizmap/install/` :
@@ -80,21 +87,10 @@ php lizmap/install/installer.php
 ## Publish your metadata as a DCAT catalog
 
 If you need to publish your metadata catalog as an RDF catalog, for example to be harvested by a third-party
-metadata platform such as Ckan, you need to declare in the file `lizmap/var/config/profiles.ini.php` a new
-section `[jdb:pgmetadata]` with the needed credentials to your PostgreSQL database hosting the metadata. For
-example:
+metadata platform such as Ckan, you need to declare the needed credentials to your PostgreSQL database hosting the metadata.
 
-```ini
-[jdb:pgmetadata]
-driver=pgsql
-database=pgmetadata
-host=localhost
-port=5432
-user=your_user
-password=your_password
-persistent=off
-;search_path=""
-```
+To do it, go into the administration interface of Lizmap, click on the pgmetadata menu item,
+and you could indicate these credentials.
 
 Then, you would be able to access the following URLs
 
