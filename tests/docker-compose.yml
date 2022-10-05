@@ -49,7 +49,7 @@ services:
       QGSRV_SERVER_PLUGINPATH: /srv/plugins
       PGSERVICEFILE: /srv/etc/pg_service.conf
       PGSPASSFILE: /srv/etc/pgpass.conf
-      QGIS_SERVER_LIZMAP_REVEAL_SETTINGS: True
+      QGIS_SERVER_LIZMAP_REVEAL_SETTINGS: yes
     volumes:
       - ${LIZMAP_DIR}/instances:/srv/projects
       - ${LIZMAP_DIR}/etc:/srv/etc:ro
