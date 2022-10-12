@@ -77,6 +77,11 @@ pull:
 shell:
 	docker compose exec -u ${LIZMAP_USER_ID} lizmap /bin/sh -l
 
+install-module:
+	docker compose exec -u ${LIZMAP_USER_ID} lizmap php /www/lizmap/install/configurator.php pgmetadata
+	docker compose exec -u ${LIZMAP_USER_ID} lizmap php /www/lizmap/install/configurator.php pgmetadataAdmin
+	docker compose exec -u ${LIZMAP_USER_ID} lizmap php /www/lizmap/install/installer.php -v
+
 install-plugins:
 	docker run \
 	    -u $(LIZMAP_USER_ID):$(LIZMAP_USER_GID) \

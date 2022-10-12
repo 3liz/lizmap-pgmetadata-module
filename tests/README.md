@@ -11,6 +11,12 @@ Steps:
     make run
     ```
 
+- If you run Lizmap 3.6+, install the pgmetadata with
+
+    ```
+    make install-module    
+    ```
+
 - A simple `pgmetadata` project is present but you have to set rights in administration to view it.
 
 - Open your browser at `http://localhost:9095`
