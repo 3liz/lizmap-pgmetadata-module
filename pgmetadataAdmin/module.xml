@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="pgmetadataAdmin@3liz.com" name="pgmetadataAdmin" createdate="2022-09-15">
-        <version date="2022-09-21">1.0.2</version>
+        <version date="2022-10-20">1.0.3</version>
         <label lang="en_US">pgmetadataAdmin</label>
         <description lang="en_US" />
         <license URL="">Mozilla Public Licence (MPL)</license>

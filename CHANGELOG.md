@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.0.3 - 2022-10-20
+
+* Fix installation with Lizmap 3.6
+
 ## 1.0.2 - 2022-09-21
 
 * rewording some messages
