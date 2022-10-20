@@ -34,7 +34,6 @@ services:
       - ${PGMETADATA_MODULE_SRC}/pgmetadataAdmin:/www/lizmap/lizmap-modules/pgmetadataAdmin
     command:
       - php-fpm
-    restart: unless-stopped
     depends_on:
       - pgsql
   map:
