@@ -39,6 +39,7 @@ If you are using Lizmap 3.6 or higher, first execute
 
 ```bash
 php configurator.php pgmetadata
+php configurator.php pgmetadataAdmin
 ```
 
 Then, for Lizmap 3.4 and higher:
