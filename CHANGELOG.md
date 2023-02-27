@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+* Increase required lizmap max version to 3.7
+
 ## 1.0.3 - 2022-10-20
 
 * Fix installation with Lizmap 3.6
