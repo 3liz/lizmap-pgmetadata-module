@@ -2,7 +2,10 @@
 
 ## Unreleased
 
+## 1.0.4 - 2023-02-27
+
 * Increase required lizmap max version to 3.7
+* Update documentation about installation
 
 ## 1.0.3 - 2022-10-20
 
