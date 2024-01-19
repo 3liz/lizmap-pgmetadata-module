@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+
+## 1.0.5 - 2024-01-17
+
+* update test env for Lizmap 3.7
+
 ## 1.0.4 - 2023-02-27
 
 * Increase required lizmap max version to 3.7
