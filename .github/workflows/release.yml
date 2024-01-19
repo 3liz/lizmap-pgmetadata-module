@@ -16,10 +16,10 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: Set up Python 3.8
+      - name: Set up Python 3.11
         uses: actions/setup-python@v5.0.0
         with:
-          python-version: 3.8
+          python-version: "3.11"
 
       - uses: actions/cache@v4
         with:
@@ -39,12 +39,3 @@ jobs:
         with:
           bodyFile: release.md
           token: ${{ secrets.BOT_HUB_TOKEN }}
-
-      - name: Tweet
-        uses: mugi111/tweet-trigger-release@v1.2
-        with:
-          consumer_key: ${{ secrets.TWITTER_CONSUMER_KEY }}
-          consumer_secret: ${{ secrets.TWITTER_CONSUMER_SECRET }}
-          access_token_key: ${{ secrets.TWITTER_ACCESS_TOKEN_KEY }}
-          access_token_secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-          tweet_body: "New version of the module #PgMetadata ${{ env.RELEASE_VERSION }} for @LizmapForQgis https://github.com/3liz/lizmap-pgmetadata-module/releases"
