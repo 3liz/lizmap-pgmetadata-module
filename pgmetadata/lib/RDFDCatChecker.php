@@ -24,9 +24,9 @@ class RDFDCatChecker extends AbstractSearch
      *
      * @param string $profile
      *
-     * @return int one of STATUS_* constants
-     *
      * @throws DCatSupportException
+     *
+     * @return int one of STATUS_* constants
      */
     public function checkDCatSupport($profile)
     {
