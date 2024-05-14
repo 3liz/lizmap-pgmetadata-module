@@ -1,33 +1,58 @@
-# Run Lizmap stack with docker compose
+## Run Lizmap stack with docker compose
 
 Steps:
 
-- Launch Lizmap with docker compose
-    ```
-    # Clean previous versions (optional)
-    make clean
+* Launch Lizmap with docker compose
 
-    # Run the different services
-    make run
-    ```
+```bash
+# Clean previous versions (optional)
+make clean
 
-- If you run Lizmap 3.6+, install the pgmetadata with
+# Pull docker images
+make pull
 
-    ```
-    make install-module    
-    ```
+# Run the different services
+make run
+```
 
-- A simple `pgmetadata` project is present but you have to set rights in administration to view it.
+* Open your browser at `http://localhost:9085`
 
-- Open your browser at `http://localhost:9095`
 
 For more information, refer to the [docker compose documentation](https://docs.docker.com/compose/)
+
+
+## Add the test data
+
+You can add some data in your docker test PostgreSQL database by running the SQL `tests/sql/test_data.sql`.
+
+
+```bash
+make import-test-data
+```
+
+
+## Install the module
+
+* Install the module with:
+
+```bash
+make install-module
+```
+
+* Add the needed Lizmap rights:
+
+
+```bash
+make import-lizmap-acl
+```
+
+Then you can try the [Lizmap test map](http://localhost:9095/index.php/view/map/?repository=pgmetadata&project=pgmetadata).
 
 ## Access to the dockerized PostgreSQL instance
 
 You can access the docker PostgreSQL test database `lizmap` from your host by configuring a
 [service file](https://docs.qgis.org/latest/en/docs/user_manual/managing_data_source/opening_data.html#postgresql-service-connection-file).
-The service file can be stored in your user home `~/.pg_service.conf` and should contains this section
+The service file can be stored in your user home `~/.pg_service.conf` and should contain this section
 
 ```ini
 [lizmap-pgmetadata]
@@ -49,17 +74,3 @@ psql service=lizmap-pgmetadata
 
 If you want to enter into the lizmap container to execute some commands, 
 execute `make shell`.
-
-## Add the test data
-
-You can add some data in your docker test PostgreSQL database by running the SQL `tests/sql/test_data.sql`.
-
-```bash
-make import-data
-```
-or
-```bash
-psql service=lizmap-pgmetadata -f tests/sql/test_data.sql
-```
-
-Then you can try the [Lizmap test map](http://localhost:9095/index.php/view/map/?repository=pgmetadata&project=pgmetadata).
