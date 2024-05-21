@@ -2,6 +2,15 @@
 
 ## Unreleased
 
+## 1.0.6 - 2024-05-21
+
+### Changed
+
+* Fix getting the metadata sheet for layers with complex names
+
+### Backend
+
+* Tests - Update versions & improve README & Makefile
 
 ## 1.0.5 - 2024-01-17
 
