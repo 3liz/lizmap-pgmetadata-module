@@ -10,8 +10,24 @@
     lizMap.events.on({
         'lizmapswitcheritemselected': function (evt) {
             if (evt.selected) {
-                var layername = lizMap.getLayerNameByCleanName(evt.name);
-                get_metadata_html(layername);
+                // We use the name as written in QGIS layer tree
+                // to get the Lizmap layer properties
+                // and then use the layer ID to fetch data
+                const layername = evt.name;
+                if (!(layername in lizMap.config.layers)) {
+                    console.log(`No QGIS layer found for ${layername}`);
+
+                    return true;
+                }
+                const layer = lizMap.config.layers[layername];
+
+                // Get the metadata only for layers, not for groups
+                if (layer.type != 'layer') {
+                    return true;
+                }
+
+                // Get the metadata sheet
+                get_metadata_html(layer.id);
             }
         }
     });
