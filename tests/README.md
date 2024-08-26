@@ -15,7 +15,7 @@ make pull
 make run
 ```
 
-* Open your browser at `http://localhost:9085`
+* Open your browser at `http://localhost:9095`
 
 
 For more information, refer to the [docker compose documentation](https://docs.docker.com/compose/)
