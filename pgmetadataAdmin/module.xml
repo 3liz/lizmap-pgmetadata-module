@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module xmlns="http://jelix.org/ns/module/1.0">
     <info id="pgmetadataAdmin@3liz.com" name="pgmetadataAdmin" createdate="2022-09-15">
-        <version date="2024-05-21">1.0.6</version>
+        <version date="2024-08-26">1.0.7</version>
         <label lang="en_US">pgmetadataAdmin</label>
         <description lang="en_US" />
         <license URL="">Mozilla Public Licence (MPL)</license>
@@ -10,7 +10,7 @@
         <homepageURL>https://3liz.com</homepageURL>
     </info>
     <dependencies>
-        <module name="lizmap" minversion="3.3.4" maxversion="3.7.*"/>
+        <module name="lizmap" minversion="3.3.4" maxversion="3.8.*"/>
         <module name="pgmetadata"/>
     </dependencies>
 </module>

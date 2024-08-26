@@ -2,6 +2,10 @@
 
 ## Unreleased
 
+## 1.0.7 - 2024-08-26
+
+* Compatibility with Lizmap 3.8
+
 ## 1.0.6 - 2024-05-21
 
 ### Changed
