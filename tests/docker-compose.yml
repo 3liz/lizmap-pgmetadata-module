@@ -28,7 +28,6 @@ services:
       - ${LIZMAP_DIR}/var/lizmap-db:/www/lizmap/var/db
       - ${LIZMAP_DIR}/www:/www/lizmap/www
       - ${LIZMAP_DIR}/var/lizmap-log:/www/lizmap/var/log
-      - ${LIZMAP_DIR}/var/lizmap-temp:/www/temp/lizmap/
       - ${LIZMAP_DIR}/etc:/srv/etc:ro
       - ${MODULE_SRC}/pgmetadata:/www/lizmap/lizmap-modules/pgmetadata
       - ${MODULE_SRC}/pgmetadataAdmin:/www/lizmap/lizmap-modules/pgmetadataAdmin
