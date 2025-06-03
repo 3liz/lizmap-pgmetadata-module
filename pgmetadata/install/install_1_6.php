@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author    Pierre DRILLIN
  * @copyright 2020 3liz
@@ -9,7 +10,5 @@
  */
 class pgmetadataModuleInstaller extends jInstallerModule
 {
-    public function install()
-    {
-    }
+    public function install() {}
 }

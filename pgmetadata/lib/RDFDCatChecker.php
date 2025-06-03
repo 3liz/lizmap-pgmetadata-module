@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author    Pierre DRILLIN
  * @author    Laurent Jouanneau
@@ -24,9 +25,9 @@ class RDFDCatChecker extends AbstractSearch
      *
      * @param string $profile
      *
-     * @throws DCatSupportException
-     *
      * @return int one of STATUS_* constants
+     *
+     * @throws DCatSupportException
      */
     public function checkDCatSupport($profile)
     {

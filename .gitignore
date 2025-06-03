@@ -13,3 +13,6 @@ node_modules
 
 # Tests
 tests/lizmap/qgis-server-plugins
+
+#composer
+vendor

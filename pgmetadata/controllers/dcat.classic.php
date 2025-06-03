@@ -1,4 +1,8 @@
 <?php
+
+use PgMetadata\DCatSupportException;
+use PgMetadata\RDFDCat;
+
 /**
  * @author    Michaël DOUCHIN
  * @author    Laurent Jouanneau
@@ -43,8 +47,7 @@ class dcatCtrl extends jController
     /**
      * Check if a given string is a search item.
      *
-     * @param string $quert The string to check
-     * @param mixed  $query
+     * @param mixed $query
      *
      * @return bool
      */
@@ -83,8 +86,8 @@ class dcatCtrl extends jController
         $empty_content = $tpl->fetch('pgmetadata~dcat_catalog');
 
         try {
-            $search = new \PgMetadata\RDFDCat();
-        } catch (\PgMetadata\DCatSupportException $e) {
+            $search = new RDFDCat();
+        } catch (DCatSupportException $e) {
             $rep->content = $empty_content;
 
             return $rep;

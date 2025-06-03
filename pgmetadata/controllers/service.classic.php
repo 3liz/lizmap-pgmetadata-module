@@ -1,4 +1,7 @@
 <?php
+
+use PgMetadata\HtmlExport;
+
 /**
  * @author    Pierre DRILLIN
  * @author    Laurent Jouanneau
@@ -79,7 +82,7 @@ class serviceCtrl extends jController
         $profile = $layer->getDatasourceProfile();
 
         // Check if pgmetadata.dataset exists in the layer database
-        $search = new \PgMetadata\HtmlExport($profile);
+        $search = new HtmlExport($profile);
 
         $result = $search->checkPgMetadataInstalled();
         if ($result['status'] == 'error') {

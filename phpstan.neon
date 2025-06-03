@@ -1,0 +1,9 @@
+parameters:
+	scanDirectories:
+		- vendor/
+	level: 1
+	paths:
+		- pgmetadata
+		- pgmetadataAdmin
+	ignoreErrors:
+		- '#Call to static method [a-zA-Z0-9]+\(\) on an unknown class lizmap#'

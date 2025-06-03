@@ -1,4 +1,5 @@
 <?php
+
 /**
  * @author    Laurent Jouanneau
  * @copyright 2022 3liz
@@ -10,6 +11,4 @@
 
 namespace PgMetadata;
 
-class DCatSupportException extends \Exception
-{
-}
+class DCatSupportException extends \Exception {}
