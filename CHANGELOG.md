@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 1.0.8 - 2025-06-03
+
+* Compatibility with Lizmap 3.9
+* PHP CS Fixer for PHP code quality
+* PHP Stan for PHP code quality
+
 ## 1.0.7 - 2024-08-26
 
 * Compatibility with Lizmap 3.8
