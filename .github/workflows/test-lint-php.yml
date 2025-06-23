@@ -16,6 +16,6 @@ jobs:
 
     - uses: actions/checkout@master
 
-    - uses: docker://oskarstark/php-cs-fixer-ga:3.8.0
+    - uses: docker://oskarstark/php-cs-fixer-ga:3.75.0
       with:
         args: --config=.php-cs-fixer.dist.php --allow-risky=yes --dry-run --diff -- pgmetadata
