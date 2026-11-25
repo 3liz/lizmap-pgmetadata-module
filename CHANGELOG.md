@@ -2,6 +2,8 @@
 
 ## Unreleased
 
+## 1.1.0 - 2026-11-25
+
 * Compatibility with Lizmap 3.10
 * Lizmap 3.8 minimum is required
 * Layer information panel: the Lizmap layer tools are back in their tab with Lizmap 3.10
