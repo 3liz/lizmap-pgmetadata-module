@@ -32,3 +32,13 @@
     border: none;
     outline: 2px solid red;
 }
+
+/* Fields of the form: label above a field of limited width */
+#pgmd-profile .pgmd-field {
+    margin-bottom: 10px;
+    max-width: 400px;
+}
+
+#pgmd-profile .pgmd-field label {
+    display: block;
+}

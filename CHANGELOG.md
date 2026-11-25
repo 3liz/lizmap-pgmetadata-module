@@ -2,6 +2,11 @@
 
 ## Unreleased
 
+* Compatibility with Lizmap 3.10
+* Lizmap 3.8 minimum is required
+* Layer information panel: the Lizmap layer tools are back in their tab with Lizmap 3.10
+* Administration: form to access the database with the style of Lizmap
+
 ## 1.0.8 - 2025-06-03
 
 * Compatibility with Lizmap 3.9
